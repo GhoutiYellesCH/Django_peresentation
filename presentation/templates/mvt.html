@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="row">
+    <div class="col-md-7">
+      <h1 class="display-5 fw-bold text-success">Phase 1: L'Architecture MVT (La Base)</h1>
+      <p class="lead">Django organise tout avec l'architecture MVT (Model-View-Template), une structure claire qui sépare les rôles pour la simplicité et la maintenabilité.</p>
+      
+      <h3 class="mt-4 text-warning">L'Analogie du Restaurant 🧑‍🍳</h3>
+      <ul class="list-group list-group-flush bg-dark border-0">
+        <li class="list-group-item bg-dark text-light border-success fs-5">
+          <strong class="text-info">Model (ORM)</strong> : Le Frigo 🧊. C'est là où sont stockées les données. Gère la base de données.
+        </li>
+        <li class="list-group-item bg-dark text-light border-success fs-5">
+          <strong class="text-info">View (Python)</strong> : Le Cuisinier 👨‍🍳. Contient la logique. Décide quoi prendre dans le frigo et quoi servir.
+        </li>
+        <li class="list-group-item bg-dark text-light border-success fs-5">
+          <strong class="text-info">Template (HTML/Django)</strong> : Le Plat 🍽️. C'est la présentation finale servie au client (l'utilisateur).
+        </li>
+      </ul>
+    </div>
+    
+    <div class="col-md-5">
+      <h3 class="mt-4">Code d'Exemple: Le Plan (URL Routing)</h3>
+      <p class="text-muted">Comment Django sait quelle "Vue" (quel cuisinier) appeler en fonction de l'adresse (l'URL).</p>
+      <pre><code class="language-python">
+# django_presentation/urls.py
+
+# Si l'utilisateur tape: /admin/
+path('admin/', admin.site.urls), 
+
+# Si l'utilisateur tape: /
+path('', include('presentation.urls')), 
+
+# Chaque adresse (URL) est reliée à une fonction Python (Vue).
+      </code></pre>
+    </div>
+  </div>
+  <hr>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <a href="{% url 'orm' %}" class="btn btn-success btn-lg">Phase 2 Suivante: Le Frigo (ORM) →</a>
+  </div>
+{% endblock %}

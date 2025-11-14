@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container my-5">
+    <h1 class="display-6 fw-bold text-info">Phase 3: Templates & ORM Data Rendering (Live Demo)</h1>
+    <p class="lead">Ceci est le résultat de l'ORM (Phase 2) formaté par les Templates (Phase 3). Les données sont fraîches !</p>
+
+    <div class="row">
+      {% for article in articles %}
+        <div class="col-md-6 mb-4">
+          <div class="card shadow-sm bg-dark text-light border-secondary">
+            <div class="card-body">
+              <h5 class="card-title text-success">{{ article.title }}</h5>
+              <p class="card-text">{{ article.content|truncatewords:30 }}</p>
+              <small class="text-muted">Publié le: {{ article.date_pub|date:"d M Y" }}</small>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <div class="col-12">
+          <div class="alert alert-warning">
+            Aucun article n'a été publié. Veuillez en ajouter via l'interface <a href="/admin/">Admin</a> pour cette démo.
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  
+  <hr>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <a href="{% url 'security' %}" class="btn btn-success btn-lg">Phase 4 Suivante: Sécurité Intégrée →</a>
+  </div>
+{% endblock %}

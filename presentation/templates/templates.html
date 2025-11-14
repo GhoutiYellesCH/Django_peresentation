@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="row">
+    <div class="col-md-7">
+      <h1 class="display-5 text-success">Phase 3: Templates System</h1>
+      <p class="lead">Le moteur de templates de Django est chargé d'assembler la présentation (HTML) et d'injecter les données de l'ORM, tout en assurant la réutilisation de code.</p>
+      
+      <h3 class="mt-4">Concept 1: Héritage de Templates</h3>
+      <p>Toutes les pages de ce site (y compris celle-ci) héritent de `base.html`. Ceci garantit que si nous mettons à jour la barre de navigation ou le pied de page, toutes les pages sont mises à jour instantanément.</p>
+      
+      <h3 class="mt-4">Concept 2: Boucles et Filtres</h3>
+      <p>Django utilise des balises (<code>&#123;% %&#125;</code>) pour la logique (boucles, conditions) et des variables (<code>&#123;&#123; &#125;&#125;</code>) pour afficher les données de l'ORM. Les filtres (`|date`, `|truncatewords`) formatent les données sans utiliser de JavaScript.</p>
+      <a href="{% url 'article_list' %}" class="btn btn-primary btn-lg mt-2">Voir les Filtres en Action (Live Data)</a>
+    </div>
+    
+    <div class="col-md-5">
+      <h3 class="mt-4">Code Template: `articles_list.html`</h3>
+      <p class="text-muted">Comment une boucle et des filtres affichent les données ORM.</p>
+      <pre><code class="language-html">
+&#123;% extends 'base.html' %&#125;
+&#123;% block content %&#125;
+  &#123;% for article in articles %&#125;
+    &lt;div class="card-body"&gt;
+      &lt;h5&gt;&#123;&#123; article.title &#125;&#125;&lt;/h5&gt;
+      &lt;!-- Utilisation d'un filtre --&gt;
+      &lt;p&gt;&#123;&#123; article.content|truncatewords:30 &#125;&#125;&lt;/p&gt;
+      &lt;small&gt;Publié le: &#123;&#123; article.date_pub|date:"d M Y" &#125;&#125;&lt;/small&gt;
+    &lt;/div&gt;
+  &#123;% empty %&#125;
+    &lt;p&gt;Aucun article.&lt;/p&gt;
+  &#123;% endfor %&#125;
+&#123;% endblock %&#125;
+      </code></pre>
+
+    </div>
+  </div>
+  <hr>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <a href="{% url 'security' %}" class="btn btn-success btn-lg">Phase 4 Suivante: Sécurité & Auth →</a>
+  </div>
+{% endblock %}
+

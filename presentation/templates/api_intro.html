@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="row">
+    <div class="col-md-7">
+      <h1 class="display-5 fw-bold text-success">Phase 6: API Endpoints (La Connexion au Monde) 🌍</h1>
+      <p class="lead">Django permet d'exposer très rapidement les données de l'ORM (votre Frigo) sous forme d'API JSON. Ceci est essentiel pour connecter votre backend à des applications mobiles, des frontends JavaScript (React/Vue) ou d'autres services.</p>
+      
+      <h3 class="mt-4 text-warning">Le Principe du JSON</h3>
+      <p>Le JSON (JavaScript Object Notation) est le langage universel d'échange de données sur le web. Django le génère à partir de vos objets Python en quelques lignes de code seulement.</p>
+
+      <h3 class="mt-4">Endpoints Live:</h3>
+      <p>Ces routes retournent les données du modèle `Article` au format JSON. Ouvrez-les dans un nouvel onglet pour voir la structure de données brute :</p>
+      <ul class="list-group list-group-flush bg-dark text-light border-0">
+        <li class="list-group-item bg-dark text-light border-success fs-5">
+          <strong class="text-info">Liste d'Articles:</strong> <a href="{% url 'api_articles' %}" target="_blank" class="text-warning">/api/articles/</a>
+        </li>
+        <li class="list-group-item bg-dark text-light border-success fs-5">
+          <strong class="text-info">Statistiques:</strong> <a href="{% url 'api_stats' %}" target="_blank" class="text-warning">/api/stats/</a>
+        </li>
+      </ul>
+    </div>
+    
+    <div class="col-md-5">
+      <h3 class="mt-4">Code API: `views.py`</h3>
+      <p class="text-muted">Nous transformons les objets ORM directement en réponse JSON.</p>
+      {% verbatim %}
+      <pre><code class="language-python">
+# presentation/views.py
+from django.http import JsonResponse
+from .models import Article
+
+def api_stats(request):
+    total_articles = Article.objects.count()
+    
+    # Un dictionnaire Python (dict) 
+    # est sérialisé en JSON automatiquement
+    stats = {
+        'total_articles': total_articles,
+        'status': 'OK',
+    }
+    return JsonResponse(stats)
+      </code></pre>
+      {% endverbatim %}
+      <h3 class="mt-4">Résultat JSON (Output)</h3>
+      <pre><code class="language-json">
+{
+    "total_articles": 5, 
+    "status": "OK"
+}
+      </code></pre>
+    </div>
+  </div>
+  <hr>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <a href="{% url 'conclusion' %}" class="btn btn-warning btn-lg">Phase Finale: Conclusion →</a>
+  </div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="container my-5">
+    <h1 class="display-5 fw-bold text-info">📊 Tableau de Bord (Phase 5 Demo)</h1>
+    <p class="lead">Démonstration d'un tableau de bord dynamique et sécurisé. Ces données sont récupérées en temps réel via l'ORM.</p>
+
+    <div class="row mt-4">
+      
+      <div class="col-md-4 mb-4">
+        <div class="card text-white bg-success shadow">
+          <div class="card-body text-center">
+            <h5 class="card-title">Articles Totaux</h5>
+            <p class="display-4 fw-bold">{{ total_articles }}</p>
+            <small>Récupéré via l'ORM: <code>Article.objects.count()</code></small>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-8 mb-4">
+        <div class="card bg-dark text-light border-secondary shadow">
+          <div class="card-body">
+            <h5 class="card-title">Dernier Article Publié (Démonstration en Temps Réel)</h5>
+            {% if last_article %}
+              <p class="mb-1 text-warning">Titre: <strong>{{ last_article.title }}</strong></p>
+              <p class="mb-1">Publié le: {{ last_article.date_pub|date:"d M Y à H:i" }}</p>
+              <p class="text-muted small">Contenu: {{ last_article.content|truncatewords:10 }}</p>
+            {% else %}
+              <p class="text-warning">Aucun article trouvé. Ajoutez-en via l'interface Admin pour voir la magie !</p>
+            {% endif %}
+            <small class="mt-2 text-muted">Essayez d'ajouter un article dans l'onglet Admin, puis rafraîchissez ici.</small>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+    <h2 class="mt-4">Activité Récente</h2>
+    <ul class="list-group">
+      {% for article in recent_articles %}
+        <li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-light border-secondary">
+          {{ article.title }}
+          <span class="badge bg-secondary rounded-pill">{{ article.date_pub|date:"H:i" }}</span>
+        </li>
+      {% empty %}
+        <li class="list-group-item bg-dark text-light border-secondary">Aucun article récent.</li>
+      {% endfor %}
+    </ul>
+  </div>
+  
+  <hr>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <a href="{% url 'api_intro' %}" class="btn btn-success btn-lg">Phase 6 Suivante: API Endpoints →</a>
+  </div>
+{% endblock %}

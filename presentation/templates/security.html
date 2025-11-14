@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="row">
+    <div class="col-md-7">
+      <h1 class="display-5 fw-bold text-success">Phase 4: Sécurité Intégrée (Le Bouclier de Django) 🛡️</h1>
+      <p class="lead">Django offre une protection par défaut contre les vulnérabilités web courantes, garantissant un développement à la fois rapide et sûr sans effort supplémentaire.</p>
+      
+      <h3 class="mt-4 text-warning">Les 3 Protections Automatiques (Le Saviez-vous ?)</h3>
+      <ul class="list-group list-group-flush bg-dark border-0">
+        <li class="list-group-item bg-dark text-light border-success fs-5">
+          <strong class="text-info">CSRF (Cross-Site Request Forgery)</strong> : Protégé via <code>{% csrf_token %}</code> dans tous les formulaires POST.
+        </li>
+        <li class="list-group-item bg-dark text-light border-success fs-5">
+          <strong class="text-info">XSS (Cross-Site Scripting)</strong> : Les données sont automatiquement échappées dans les templates (protection intégrée).
+        </li>
+        <li class="list-group-item bg-dark text-light border-success fs-5">
+          <strong class="text-info">SQL Injection</strong> : L'ORM protège en paramétrant toutes les requêtes (plus besoin d'écrire de SQL dangereux).
+        </li>
+      </ul>
+
+      <h3 class="mt-4">Live Demo: Accès Protégé (Authentification Requise)</h3>
+      <p>L'accès au Tableau de Bord (Phase 5) est sécurisé par un simple décorateur Python. Si vous n'êtes pas connecté, vous êtes redirigé ici :</p>
+      <a href="{% url 'login' %}" class="btn btn-primary btn-lg mt-2">Tester la Connexion (Page Protégée)</a>
+    </div>
+    
+    <div class="col-md-5">
+      <h3 class="mt-4">Code Sécurité 1: Protéger une Vue</h3>
+      {% verbatim %}
+      <pre><code class="language-python">
+# presentation/views.py
+from django.contrib.auth.decorators import login_required
+
+@login_required # La clé de la protection !
+def dashboard(request):
+    # Cette vue ne s'exécutera que si l'utilisateur est connecté.
+    return render(request, 'dashboard.html')
+      </code></pre>
+      {% endverbatim %}
+
+      <h3 class="mt-4">Code Sécurité 2: Protéger un Formulaire (CSRF)</h3>
+      <p class="text-muted">Le jeton `{% csrf_token %}` est inséré par Django pour chaque soumission.</p>
+      {% verbatim %}
+      <pre><code class="language-html">
+&lt;form method="post"&gt;
+    {% csrf_token %} &lt;-- Le jeton anti-hacker
+    &lt;input type="text" name="data"&gt;
+&lt;/form&gt;
+      </code></pre>
+      {% endverbatim %}
+    </div>
+  </div>
+  <hr>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <a href="{% url 'dashboard' %}" class="btn btn-success btn-lg">Phase 5 Suivante: Dashboard & Admin →</a>
+  </div>
+{% endblock %}

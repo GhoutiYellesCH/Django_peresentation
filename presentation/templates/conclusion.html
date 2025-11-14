@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="text-center py-5">
+    <h1 class="display-3 fw-bold text-success">Conclusion & Avantages de Django ✅</h1>
+    <p class="lead mt-3">En résumé, Django nous permet de développer des applications web complexes rapidement et en toute sécurité grâce à une architecture éprouvée.</p>
+    
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-8">
+        <ul class="list-group list-group-flush text-start">
+          <li class="list-group-item bg-dark text-light border-success fs-5">🚀 Rapidité de Développement : Grâce à l'ORM, aux Templates et à l'Admin.</li>
+          <li class="list-group-item bg-dark text-light border-success fs-5">🔒 Sécurité par Défaut : Protection intégrée contre CSRF, XSS, et SQL Injection.</li>
+          <li class="list-group-item bg-dark text-light border-success fs-5">🧩 Batteries Included : ORM, Auth, Admin, et API sont natifs et prêts à l'emploi.</li>
+          <li class="list-group-item bg-dark text-light border-success fs-5">📈 Évolutivité : Une architecture claire (MVT) pour les projets de toute taille.</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="d-grid gap-2 col-6 mx-auto mt-5">
+      <a href="{% url 'home' %}" class="btn btn-warning btn-lg">RETOUR À L'ACCUEIL (FIN)</a>
+      <a href="https://docs.djangoproject.com/en/5.0/" target="_blank" class="btn btn-outline-light btn-sm mt-3">Ressources Django Officielles</a>
+    </div>
+  </div>
+{% endblock %}
