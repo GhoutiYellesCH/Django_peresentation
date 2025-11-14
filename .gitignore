@@ -22,6 +22,7 @@ db.sqlite3
 *.env
 .env
 .DS_Store # Mac OS
+.gitignore
 
 # Fichiers de développement et de cache
 .vscode/
