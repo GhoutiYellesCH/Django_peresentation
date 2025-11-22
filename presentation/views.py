@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import Article
-from django.http import JsonResponse
+from django.http import JsonResponse # for the API usage
 from django.core import serializers
 import json
 from datetime import datetime
@@ -49,20 +49,12 @@ def article_list(request):
     return render(request, 'articles_list.html', context)
 
 def api_articles(request):
-    # Fetch all articles using ORM
     articles = Article.objects.all().order_by('-date_pub')
-    
-    # Manually serialize the necessary fields (good for showing control)
     data = list(articles.values('title', 'date_pub'))
-    
-    # JsonResponse with safe=False required since we're passing a list, not a dict.
     return JsonResponse(data, safe=False)
 
 def api_stats(request):
-    # Fetch required stats using ORM aggregation
     total_articles = Article.objects.count()
-    
-    # Get last article date (if exists)
     last_pub = Article.objects.order_by('-date_pub').values_list('date_pub', flat=True).first()
     
     stats = {
