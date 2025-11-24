@@ -12,7 +12,7 @@
             <div class="card-body">
               <h5 class="card-title text-success">{{ article.title }}</h5>
               <p class="card-text">{{ article.content|truncatewords:30 }}</p>
-              <small class="text-muted">Publié le: {{ article.date_pub|date:"d M Y" }}</small>
+              <small class="card-text">Publié le: {{ article.date_pub|date:"d M Y" }}</small>
             </div>
           </div>
         </div>
